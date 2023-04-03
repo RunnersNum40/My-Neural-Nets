@@ -1,4 +1,5 @@
 from my_neural_networks.optimizers.optimizer import Optimizer
+from typing import List, Tuple
 import numpy as np
 
 
@@ -8,6 +9,9 @@ class Momentum(Optimizer):
     Attributes:
         learning_rate (float): Learning rate of the optimizer.
         momentum (float): Momentum of the optimizer.
+        velocity (np.ndarray): Velocity of the optimizer.
+        gradients List[Tuple[np.ndarray, np.ndarray]]: Gradients of
+            the weights and biases of the neural network.
     """
     def __init__(self,
                  learning_rate: float = 0.01,
@@ -27,30 +31,48 @@ class Momentum(Optimizer):
         # Initialize the velocity to None.
         self.velocity = None
 
-    def record(self, gradient: np.ndarray) -> None:
-        """Record the gradient of the parameters of the neural network.
+        # Initialize the gradients to None.
+        self.gradients: List[Tuple[np.ndarray, np.ndarray]] = []
+
+    def record(self,
+               weight_gradient: np.ndarray,
+               bias_gradient: np.ndarray
+               ) -> None:
+        """Record the gradient of the parameters of the layer.
 
         Args:
-            gradient (np.ndarray): Gradient of the parameters of the neural
-                network.
+            gradient (np.ndarray): Gradient of the parameters of the layer.
+            bias_gradient (np.ndarray): Gradient of the bias of the layer.
         """
         # Save the gradient.
-        self.gradient = gradient
+        self.gradients.append((weight_gradient, bias_gradient))
 
-    def update(self, params: np.ndarray) -> np.ndarray:
-        """Update the parameters of the neural network.
+    def update(self,
+               weights: np.ndarray,
+               bias: np.ndarray
+               ) -> Tuple[np.ndarray, np.ndarray]:
+        """Update the parameters of the layer.
 
         Args:
-            params (np.ndarray): Parameters of the neural network.
+            weights (np.ndarray): Parameters of the layer.
+            bias (np.ndarray): Bias of the layer.
 
         Returns:
-            np.ndarray: Updated parameters of the neural network.
+            Tuple[np.ndarray, np.ndarray]: Updated weights and bias.
         """
-        # If the velocity is None, initialize it to zero.
+        # Calculate the mean weight gradient.
+        mean_weight_gradient = np.mean([gradient[0] for gradient in self.gradients], axis=0)  # noqa: E501
+        # Calculate the mean bias gradient.
+        mean_bias_gradient = np.mean([gradient[1] for gradient in self.gradients], axis=0)  # noqa: E501
+        # Calculate the velocity.
         if self.velocity is None:
-            self.velocity = np.zeros_like(params)
-        # Update the velocity.
-        self.velocity = (self.momentum * self.velocity +
-                         self.learning_rate * self.gradient)
-        # Return the updated parameters.
-        return params - self.velocity
+            self.velocity = (mean_weight_gradient, mean_bias_gradient)
+        else:
+            self.velocity = (self.momentum * self.velocity[0] + (1 - self.momentum) * mean_weight_gradient,  # noqa: E501
+                             self.momentum * self.velocity[1] + (1 - self.momentum) * mean_bias_gradient)  # noqa: E501
+        # Calculate the updated weights.
+        updated_weights = weights - self.learning_rate * self.velocity[0]
+        # Calculate the updated bias.
+        updated_bias = bias - self.learning_rate * self.velocity[1]
+        # Return the updated weights and bias.
+        return updated_weights, updated_bias
