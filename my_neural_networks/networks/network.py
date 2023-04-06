@@ -1,9 +1,9 @@
 from typing import List, Callable
 import numpy as np
 
-from my_neural_networks.layers import Layer
-from my_neural_networks.utils import CompileError, CompiledError
-from my_neural_networks.losses import Loss
+from ..layers import Layer
+from ..utils import CompileError, CompiledError
+from ..losses import Loss
 
 
 class Network:

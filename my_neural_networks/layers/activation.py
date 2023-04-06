@@ -1,5 +1,4 @@
-from layer import Layer
-from my_neural_networks.activations.activation import Activation
+from layer import Layer, Activation
 import numpy as np
 
 

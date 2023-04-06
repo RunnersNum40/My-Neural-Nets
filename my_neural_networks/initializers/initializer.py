@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Tuple
 import numpy as np
 
-from my_neural_networks.layers import Layer
+from ..layers import Layer
 
 
 class Initializer(ABC):

@@ -1,5 +1,5 @@
 import numpy as np
-from my_neural_networks.tensors.tensor import Tensor
+from ..tensor import Tensor
 from typing import Tuple, Union, Any
 
 

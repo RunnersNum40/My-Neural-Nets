@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
-from my_neural_networks.optimizers import Optimizer
-from my_neural_networks.initializers import Initializer
+from ..optimizers import Optimizer
+from ..initializers import Initializer
 
 
 class Layer(ABC):

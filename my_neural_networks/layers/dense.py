@@ -1,6 +1,4 @@
-from layer import Layer
-from my_neural_networks.initializers.initializer import Initializer
-from my_neural_networks.optimizers import Optimizer
+from layer import Layer, Initializer, Optimizer
 import numpy as np
 
 
