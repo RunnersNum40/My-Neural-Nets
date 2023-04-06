@@ -2,7 +2,7 @@ from typing import List, Callable
 import numpy as np
 
 from my_neural_networks.layers import Layer
-from my_neural_networks.utils.errors import CompileError, CompiledError
+from my_neural_networks.utils import CompileError, CompiledError
 from my_neural_networks.losses import Loss
 
 
