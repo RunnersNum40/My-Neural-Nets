@@ -1,4 +1,4 @@
-from my_neural_networks.activations.activation import Activation
+from activation import Activation
 import numpy as np
 
 

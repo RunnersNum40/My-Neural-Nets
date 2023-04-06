@@ -1,4 +1,4 @@
-from my_neural_networks.losses.loss import Loss
+from loss import Loss
 import numpy as np
 
 

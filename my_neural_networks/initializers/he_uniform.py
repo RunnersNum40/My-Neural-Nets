@@ -1,4 +1,4 @@
-from my_neural_networks.initializers.initializer import Initializer
+from initializer import Initializer
 from my_neural_networks.layers import Layer
 from typing import Tuple
 import numpy as np

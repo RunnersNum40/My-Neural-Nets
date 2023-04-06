@@ -1,4 +1,4 @@
-from my_neural_networks.optimizers.optimizer import Optimizer
+from optimizer import Optimizer
 from typing import List, Tuple
 import numpy as np
 

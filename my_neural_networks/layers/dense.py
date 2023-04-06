@@ -1,4 +1,4 @@
-from my_neural_networks.layers.layer import Layer
+from layer import Layer
 from my_neural_networks.initializers.initializer import Initializer
 from my_neural_networks.optimizers import Optimizer
 import numpy as np
@@ -68,11 +68,13 @@ class Dense(Layer):
             np.ndarray: Gradient of the loss with respect to the input of the
                 layer.
         """
-        # Save the gradient of the parameters of the layer.
-        self.gradient = gradient
-        # Calculate the gradient of the loss with respect to the input of the
-        # layer.
-        gradient = np.dot(gradient, self.weights.T)
-        # Return the gradient of the loss with respect to the input of the
-        # layer.
-        return gradient
+        # Calculate the gradient of the loss with respect to the weights
+        weights_gradient = np.dot(self.last_input.T, gradient)
+        # Calculate the gradient of the loss with respect to the bias
+        bias_gradient = np.sum(gradient, axis=0, keepdims=True)
+        # Calculate the gradient of the loss with respect to the input
+        input_gradient = np.dot(gradient, self.weights.T)
+        # Record the gradient of the parameters of the layer.
+        self.optimizer.record(weights_gradient, bias_gradient)
+        # Return the gradient of the loss with respect to the input
+        return input_gradient

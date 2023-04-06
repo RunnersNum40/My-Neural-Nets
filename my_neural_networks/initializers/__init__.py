@@ -1,11 +1,13 @@
+"""Initializers for neural networks weights and biases."""
+
 # Import the initializers
-from my_neural_networks.initializers.initializer import Initializer
-from my_neural_networks.initializers.random_normal import RandomNormal
-from my_neural_networks.initializers.random_uniform import RandomUniform
-from my_neural_networks.initializers.xavier_normal import XavierNormal
-from my_neural_networks.initializers.xavier_uniform import XavierUniform
-from my_neural_networks.initializers.he_normal import HeNormal
-from my_neural_networks.initializers.he_uniform import HeUniform
+from initializer import Initializer
+from random_normal import RandomNormal
+from random_uniform import RandomUniform
+from xavier_normal import XavierNormal
+from xavier_uniform import XavierUniform
+from he_normal import HeNormal
+from he_uniform import HeUniform
 
 
 # Define the __all__ variable

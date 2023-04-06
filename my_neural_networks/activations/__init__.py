@@ -1,12 +1,14 @@
+"""Activation functions for neural networks."""
+
 # Import all the activation functions
-from my_neural_networks.activations.activation import Activation
-from my_neural_networks.activations.elu import ELU
-from my_neural_networks.activations.lelu import Lelu
-from my_neural_networks.activations.linear import Linear
-from my_neural_networks.activations.relu import ReLU
-from my_neural_networks.activations.sigmoid import Sigmoid
-from my_neural_networks.activations.softmax import Softmax
-from my_neural_networks.activations.tanh import Tanh
+from activation import Activation
+from elu import ELU
+from lelu import Lelu
+from linear import Linear
+from relu import ReLU
+from sigmoid import Sigmoid
+from softmax import Softmax
+from tanh import Tanh
 
 
 # Define the __all__ variable
